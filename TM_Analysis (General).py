@@ -17,10 +17,7 @@ df[cols] = df[cols].apply(pd.to_numeric, errors='coerce').astype(float)
 
 for c in cols:
     others = [x for x in cols if x != c]
-    df[c] = df.apply(
-        lambda r: r[c] if pd.notna(r[c]) else r[others].mean(),
-        axis=1
-    )
+    df[c] = df.apply(lambda r: r[c] if pd.notna(r[c]) else r[others].mean(), axis=1)
 
 df = df.dropna(subset=cols)
 
@@ -48,5 +45,4 @@ print("\nFull DataFrame (all columns) after imputation, rounding & Next Year pre
 print(df)
 
 df.to_csv(output_csv, index=False, float_format="%.2f")
-
 print(f"\nSaved CSV: {output_csv}")
